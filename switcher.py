@@ -15,7 +15,6 @@ def popupMessage(title, message, windowToClose=None):
         def close():
             popupWindow.destroy()
             windowToClose.destroy()
-    print(close)
     msg = Label(popupWindow, text=message, padx=10, pady=10)
     ok = Button(popupWindow, text="Ok", padx=10,
                 pady=10, command=close)
