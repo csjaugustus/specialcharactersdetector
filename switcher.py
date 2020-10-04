@@ -27,10 +27,15 @@ def convertText(text, switches):
     if any(k in text for k in switches):
         for k in switches:
             if k in text:
-                kcount = text.count(k)
-                text = text.replace(k, switches[k])
-                reportMessage += f"{k} -> {switches[k]}. {kcount} occurrences.\n"
-            pyperclip.copy(text)
+                if len(k) == 1:
+                    kcount = text.count(k)
+                    text = text.replace(k, switches[k])
+                    reportMessage += f"{k} -> {switches[k]}. {kcount} occurrence(s).\n"
+                else:
+                    text, kcount = re.subn(
+                        r'(?<!\w)' + k + r'(?!\w)', switches[k], text)
+                    reportMessage += f"{k} -> {switches[k]}. {kcount} occurrence(s).\n"
+        pyperclip.copy(text)
         popupMessage('Changes made.', reportMessage +
                      "Edit text copied to clipboard.")
 
