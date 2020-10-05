@@ -338,12 +338,13 @@ class RegisterCharacters:
 
 root = Tk()
 
+root.title("Text Switcher")
 mainMenu = Menu(root)
 root.config(menu=mainMenu)
 settingsMenu = Menu(mainMenu)
 mainMenu.add_cascade(label='Settings', menu=settingsMenu)
-settingsMenu.add_command(label="Whitelist", command=lambda: Whitelist())
-settingsMenu.add_command(label="Switchlist", command=lambda: Switchlist())
+settingsMenu.add_command(label="White List", command=lambda: Whitelist())
+settingsMenu.add_command(label="Switch List", command=lambda: Switchlist())
 InputText()
 
 
