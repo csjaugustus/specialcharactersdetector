@@ -24,14 +24,25 @@ def popupMessage(title, message, windowToClose=None):
 
 def convertText(text, switches):
     reportMessage = ''
-    if any(k in text for k in switches):
-        for k in switches:
+    char_found = False
+    word_found = False
+    for k in switches:
+        if len(k) == 1:
             if k in text:
-                if len(k) == 1:
+                char_found = True
+        else:
+            if re.search(r'(?<!\w)' + k + r'(?!\w)', text):
+                word_found = True
+
+    if char_found or word_found:
+        for k in switches:
+            if len(k) == 1:
+                if k in text:
                     kcount = text.count(k)
                     text = text.replace(k, switches[k])
                     reportMessage += f"{k} -> {switches[k]}. {kcount} occurrence(s).\n"
-                else:
+            else:
+                if re.search(r'(?<!\w)' + k + r'(?!\w)', text):
                     text, kcount = re.subn(
                         r'(?<!\w)' + k + r'(?!\w)', switches[k], text)
                     reportMessage += f"{k} -> {switches[k]}. {kcount} occurrence(s).\n"
@@ -85,6 +96,7 @@ class Whitelist:
                 json.dump(self.savedData, f, indent=4)
             self.displayMessage.set("Regex updated.")
             self.displayRegex.set(self.regex)
+            input_window.reloadFile()
 
 
 class Switchlist:
@@ -124,6 +136,10 @@ class Switchlist:
         def addEntry():
             bf = e1.get()
             aft = e2.get()
+            if bf == "" or aft == "":
+                popupMessage("Error", "Inputs cannot be blank.",
+                             windowToClose=addWindow)
+                return
             self.savedData['switches'][bf] = aft
             self.lb.insert(END, f"{bf} -----> {aft}")
             with open('savefile.json', 'w') as f:
@@ -131,6 +147,7 @@ class Switchlist:
 
             popupMessage(
                 "Successful", "Successfully added new entry.", windowToClose=addWindow)
+            input_window.reloadFile()
 
         addWindow = Toplevel()
         addWindow.title("Add entry")
@@ -161,6 +178,7 @@ class Switchlist:
             with open('savefile.json', 'w') as f:
                 json.dump(self.savedData, f, indent=4)
             self.lb.delete(selectedindex)
+            input_window.reloadFile()
 
     def edit(self):
         selectedindex = self.lb.curselection()
@@ -170,6 +188,10 @@ class Switchlist:
             def editEntry():
                 bf = e1.get()
                 aft = e2.get()
+                if bf == "" or aft == "":
+                    popupMessage("Error", "Inputs cannot be blank.",
+                                 windowToClose=editWindow)
+                    return
                 del self.savedData['switches'][key]
                 self.savedData['switches'][bf] = aft
                 with open('savefile.json', 'w') as f:
@@ -179,6 +201,7 @@ class Switchlist:
 
                 popupMessage(
                     "Successful", "Successfully edited entry.", windowToClose=editWindow)
+                input_window.reloadFile()
 
             selectedindex = selectedindex[0]
             bf = self.lb.get(selectedindex).split()[0]
@@ -220,7 +243,13 @@ class InputText:
             self.switches = self.savedData['switches']
         except KeyError:
             self.switches = {}
-        self.displayTextbox()
+
+    def reloadFile(self):
+        with open("savefile.json", 'r', encoding="utf-8") as f:
+            self.savedData = json.load(f)
+        self.regex = self.savedData['regex']
+        self.switches = self.savedData['switches']
+        print("testing")
 
     def displayTextbox(self):
         label = Label(root, text="Input your text here:", padx=10, pady=10)
@@ -345,7 +374,8 @@ settingsMenu = Menu(mainMenu)
 mainMenu.add_cascade(label='Settings', menu=settingsMenu)
 settingsMenu.add_command(label="White List", command=lambda: Whitelist())
 settingsMenu.add_command(label="Switch List", command=lambda: Switchlist())
-InputText()
+input_window = InputText()
+input_window.displayTextbox()
 
 
 root.mainloop()
