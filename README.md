@@ -5,7 +5,7 @@ Also supports manually adding characters to switches, and word replacements (suc
 ## Main Interface
 ![Main Interface Image](https://github.com/csjaugustus/textswitcher/blob/master/example_images/maininterface.png)
 
-"Abnormal" characters can be see in the given text.
+"Abnormal" characters can be seen in the given text.
 
 ## White List
 ![White List Image](https://github.com/csjaugustus/textswitcher/blob/master/example_images/whitelist.png)
