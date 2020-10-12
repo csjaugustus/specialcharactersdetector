@@ -10,7 +10,7 @@ Also supports manually adding characters to switches, and word replacements (suc
 ## White List
 ![White List Image](https://github.com/csjaugustus/textswitcher/blob/master/example_images/whitelist.png)
 
-The program scans through each character in the text, and marks a character as "abnormal" if it is not part of the white list (which is a regex pattern).
+The program scans through each character in the text, and marks a character as "abnormal" if it is not part of the white list (which is a regex pattern). [\dA-Za-z\s.,"$%!?: () -—;é] is the default pattern, but can be changed manually if needed.
 
 ## Unregistered Characters Detected
 ![Unregistered Characters Detected Image](https://github.com/csjaugustus/textswitcher/blob/master/example_images/whitelistpopup.png)
