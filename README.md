@@ -2,7 +2,7 @@
 A Tkinter GUI program written to detect abnormal characters in a text (such as ﬁ, ﬀ), and make changes to them automatically.
 Also supports manually adding characters to switches, and word replacements (such as covid to COVID, etc.).
 
-### Main Interface
+## Main Interface
 ![Main Interface Image](https://github.com/csjaugustus/textswitcher/blob/master/example_images/maininterface.png)
 "Abnormal" characters can be see in the given text.
 
