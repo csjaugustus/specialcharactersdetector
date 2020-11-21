@@ -17,6 +17,19 @@
         "\ufb04": "ffl",
         "\ufb00": "ff",
         "\ufb01": "fi",
-        "\ufb02": "fl"
+        "\ufb02": "fl",
+        "sars-cov-2": "SARS-COV-2",
+        "sars": "SARS",
+        "rna": "RNA",
+        "5g": "5G",
+        "Openran": "OpenRAN",
+        "nato": "NATO",
+        "gdp": "GDP",
+        "wto": "WTO",
+        "darpa": "DARPA",
+        "fcas": "FCAS",
+        "apl": "APL",
+        "\u2026": "...",
+        "ai": "AI"
     }
 }
