@@ -140,6 +140,10 @@ class Switchlist:
                 popupMessage("Error", "Inputs cannot be blank.",
                              windowToClose=addWindow)
                 return
+            if bf in self.savedData['switches']:
+                popupMessage(
+                    "Entry exists", f"{bf} entry already exists. Edit or delete entry before registering again.")
+                return
             self.savedData['switches'][bf] = aft
             self.lb.insert(END, f"{bf} -----> {aft}")
             with open('savefile.json', 'w') as f:
